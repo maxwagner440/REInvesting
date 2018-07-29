@@ -1,7 +1,8 @@
 var express = require('express');
 var app = express();
 var path = require('path');
-const request = require('request-promise')
+const rp = require('request-promise')
+var fs = require('fs');
 
 
 /*
@@ -13,34 +14,44 @@ app.get('/', function(req, res) {
 app.listen(8080);
 */
 
-app.get('/', (req, res) =>  
-    res.sendFile(path.join(__dirname + '/index.html'))
-)
-
-
-
-//FOR API REQUEST FORMATTING//
-
-
-/*
-const options = {
-    method: 'GET',
-    uri: 'https://risingstack.com/login',
-    header: {
-      foo: 'bar'
-    },
-    json: true 
-      // JSON stringifies the body automatically
-  }
-  ​
-  request(options)
-    .then(function (response) {
-      // Handle the response
-    })
-    .catch(function (err) {
-      // Deal with the error
-    })
-*/
+app.get('/', (req, res) =>  {
+   // res.sendFile(path.join(__dirname + '/index.html'))
+    var zillID = 'X1-ZWz1gkfwodm2vf_1sm5d'
+    //state code NOT full state name
+    var state = 'co' 
+    var city = 'denver'
+    var childtype = 'neighborhood';
+    var options = {
+        uri: 'http://www.zillow.com/webservice/GetRegionChildren.htm?zws-id=' + zillID + '&state=' + state + '&city=' + city + '&childtype=' + childtype,
+        json: false
+      }
+    rp(options)
+      .then((data) => {
+        //res.render('index', data)
+        
+       
+        //console.log(data.request.state);
+        res.send(data)
+      })
+      .catch((err) => {
+        console.log(err)
+        res.render('error')
+      })
+  })
 
 
 app.listen(3000, () => console.log('App is listening on port 3000!'))
+
+
+
+
+//SAVE FILE EX
+/*
+ fs.writeFile("/", data, function(err) {
+            if(err) {
+                return console.log(err);
+            }
+        
+            console.log("The file was saved!");
+        }); 
+*/
