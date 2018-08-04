@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+        
+
+<head>
+    <meta charset="UTF-8">
+    <title>Real Estate Stats For Investing Home Page</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>      
+    <script type="text/javascript" src="scripts/chart.js"></script> 
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <style>
+        body { padding-top:10px; }
+    </style>
+</head>
+<body>
+ <div ng-app="myApp" ng-controller="myCtrl">
+          
+            First Expense: <input type="number" ng-model="firstEx" ng-change="change()"><br>
+            Second Expense: <input type="number" ng-model="secondEx"><br>
+            Third Expense: <input type="number" ng-model="thirdEx"><br>
+            Fourth Expense: <input type="number" ng-model="fourthEx"><br>
+            
+            <br>
+            Expense 1: {{firstEx}}<br>
+            Expense 2: {{secondEx}}<br>
+            Expense 3: {{thirdEx}}<br>
+            Expense 4: {{fourthEx}}<br>
+            <br>
+            <br>
+            Total: {{firstEx + secondEx + thirdEx + fourthEx}}
+           </div>
+           <script>
+                var app = angular.module('myApp', []);
+                
+                app.controller('myCtrl', function($scope) {
+                   $scope.change = function(){
+                    var one = $scope.firstEx;
+                    console.log(one)
+                   }
+                });
+           </script>
+            
+        
+</body>
+
+
+
+
+<script>
+  
+     /*   window.onload = function() {
+	var one = angular.element(document.querySelector('[ng-controller="myCtrl"]')).scope().firstEx 
+	console.log(one)
+    var two = 2
+        }*/
+</script>

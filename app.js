@@ -3,6 +3,7 @@ var app = express();
 var path = require('path');
 const rp = require('request-promise')
 var fs = require('fs');
+var convert = require('xml-js');
 
 
 /*
@@ -13,6 +14,8 @@ app.get('/', function(req, res) {
 
 app.listen(8080);
 */
+
+
 
 app.get('/', (req, res) =>  {
    // res.sendFile(path.join(__dirname + '/index.html'))
@@ -27,11 +30,19 @@ app.get('/', (req, res) =>  {
       }
     rp(options)
       .then((data) => {
+        var jason = convert.xml2json(data, {compact: true, spaces: 4});
         //res.render('index', data)
+        var reg = jason._declaration
+        fs.writeFile("C:\Users\Max\Desktop\Projects\REInvesting", reg, function(err) {
+            if(err) {
+                return console.log(err);
+            }
         
+            console.log("The file was saved!");
+        });
        
         //console.log(data.request.state);
-        res.send(data)
+        res.sendFile(path.join(__dirname + '/index.html'));
       })
       .catch((err) => {
         console.log(err)
@@ -39,6 +50,18 @@ app.get('/', (req, res) =>  {
       })
   })
 
+    app.get('/page2', (req, res) =>  {
+    res.sendFile(path.join(__dirname + '/page2.html')) 
+    })
+    
+
+  
+
+  app.post('/post/data', (request, response) => {
+    const postBody = request.body;
+    console.log(postBody);
+    console.log(request)
+  });
 
 app.listen(3000, () => console.log('App is listening on port 3000!'))
 

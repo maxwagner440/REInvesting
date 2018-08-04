@@ -9,5 +9,10 @@ This file describes a brief, high-level explanation of this application
 3. Once you have both of these setup, you can now navigate to this repo on your local system and run: 'node app.js' to start the project locally.
         -In browser navigate to http://localhost:3000/ to see index.html page.
 
+I have included a batch file that should be adjusted based on the file path of your project. Essentially the file should navigate to the directory that your project is in and then run 'node app.js' to start the local server. Still navigate to http://localhost:3000/ in browser.
+
+Home page:
+        Currently a expense break down with a responsive bar chart. We can include income and NET income after expenses to help investors see where their budget is and where they can see improvements. This will need to go in its own page but for now I messed around on the homepage with it.
+
 
 More to come...

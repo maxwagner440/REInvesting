@@ -1,23 +1,266 @@
 
 <!DOCTYPE html>
 <html lang="en">
+        
+
 <head>
     <meta charset="UTF-8">
     <title>Real Estate Stats For Investing Home Page</title>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>      
+	<script type="text/javascript" src="scripts/chart.js"></script> 
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>    
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <style>
         body { padding-top:10px; }
     </style>
 </head>
 <body>
-
+          
+        
     <div class="container">
         <div class="jumbotron">
             <h1>The Beginning of Something Great!</h1>
             <h2>Whatever the fuck else we want to feed people's minds goes here...</h2>
         </div>
-    </div>
+	</div>
+	
 
+ <!--   <div ng-app="">
+            <p>Name: <input type="text" ng-model="name"></p>
+            <p ng-bind="name"></p>
+          
+          <div data-ng-init="firstName='John'">
+                
+                <p>The name is <span data-ng-bind="firstName"></span></p>
+                
+                </div>
+
+                <div >
+                        <p>My first expression: {{ 5 + 5 }}</p>
+                      </div>
+                    </div>
+                
+
+        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+-->
+                
+                
+
+    <div ng-app="myApp" ng-controller="myCtrl">
+		  
+			<h2>Enter in your expenses to see a chart break-down</h2>
+            First Expense: <input type="number" ng-model="firstEx" ng-change="change()"><br>
+            Second Expense: <input type="number" ng-model="secondEx" ng-change="change()"><br>
+            Third Expense: <input type="number" ng-model="thirdEx" ng-change="change()"><br>
+			Fourth Expense: <input type="number" ng-model="fourthEx" ng-change="change()"><br>
+			Fifth Expense: <input type="number" ng-model="fifthEx" ng-change="change()"><br>
+            <br>
+            Expense 1: {{firstEx}}<br>
+            Expense 2: {{secondEx}}<br>
+            Expense 3: {{thirdEx}}<br>
+			Expense 4: {{fourthEx}}<br>
+			Expense 5: {{fifthEx}}<br>
+            <br>
+            <br>
+            Total: {{firstEx + secondEx + thirdEx + fourthEx + fifthEx}}
+           </div>
+	   
+		   <div id="chart_div"></div>
+            
+        
 </body>
+
+
+
+
+<script type="text/javascript">
+
+var app = angular.module('myApp', []);
+   app.controller('myCtrl', function($scope) {
+					$scope.change = function(){
+                    const one = $scope.firstEx;
+					const two = $scope.secondEx;
+					const three = $scope.thirdEx;
+					const four = $scope.fourthEx;
+					const five = $scope.fifthEx;
+					const values = {	expenseNameOne: one,
+										expenseNameTwo: two,
+										expenseNameThree:three,
+										expenseNameFour:four,
+										expenseNameFive:five
+			}
+					createTheShit(values)
+                   }  
+				})
+
+window.onload = function(){
+	createTheShit(values)
+}
+
+var createTheShit = function(values){
+if(!one){var one = 1}
+if(!two){var two = 1}
+if(!three){var three = 1}
+if(!four){var four = 1}
+if(!five){var five = 1}
+  // Load the Visualization API and the corechart package.
+  google.charts.load('current', {'packages':['corechart']});
+
+  // Set a callback to run when the Google Visualization API is loaded.
+  google.charts.setOnLoadCallback(drawChart);
+
+  // Callback that creates and populates a data table,
+  // instantiates the pie chart, passes in the data and
+  // draws it.
+  function drawChart() {
+
+	// Create the data table.
+	var data = new google.visualization.DataTable();
+	data.addColumn('string', 'Topping');
+	data.addColumn('number', 'Amt In Dollars');
+	data.addRows([
+	  ["Expense One", values.expenseNameOne],
+	  ['Expense Two', values.expenseNameTwo],
+	  ['Expense Three', values.expenseNameThree],
+	  ['Expense Four', values.expenseNameFour],
+	  ['Expense Five', values.expenseNameFive]
+	]);
+
+	// Set chart options
+	var options = {'title':'MY EXPENSES',
+				   'width':800,
+				   'height':500};
+
+	// Instantiate and draw our chart, passing in some options.
+	var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+	chart.draw(data, options);
+  }
+}
+
+</script>
+<script>
+
+
+  
+window.onload = function() {
+	
+	if(!one){var one = 10}
+	if(!two){var two = 20}
+	var five = 32
+	var chart = new CanvasJS.Chart("chartContainer", {       
+		animationEnabled: true,
+		title: {
+			text: "Try Dragging Any Column to Resize"
+		},
+		axisX:{
+			minimum: 5,
+			maximum: 95
+		},
+		data: [{
+			type: "column",
+			dataPoints: [
+				{ x: 10, y: one },
+				{ x: 20, y: two },
+				{ x: 30, y: 64 },
+				{ x: 40, y: 23 },
+				{ x: 50, y: five },
+				{ x: 60, y: 68 },
+				{ x: 70, y: 28 },
+				{ x: 80, y: 34 },
+				{ x: 90, y: 14 }
+			]
+		}]
+	});
+chart.render();
+
+var xSnapDistance = chart.axisX[0].convertPixelToValue(chart.get("dataPointWidth")) / 2;
+var ySnapDistance = 3;
+
+var xValue, yValue;
+
+var mouseDown = false;
+var selected = null;
+var changeCursor = false;
+
+var timerId = null;
+
+function getPosition(e) {
+	var parentOffset = $("#chartContainer > .canvasjs-chart-container").offset();          	
+	var relX = e.pageX - parentOffset.left;
+	var relY = e.pageY - parentOffset.top;
+	xValue = Math.round(chart.axisX[0].convertPixelToValue(relX));
+	yValue = Math.round(chart.axisY[0].convertPixelToValue(relY));
+}
+
+function searchDataPoint() {
+	var dps = chart.data[0].dataPoints;
+	for(var i = 0; i < dps.length; i++ ) {
+		if( (xValue >= dps[i].x - xSnapDistance && xValue <= dps[i].x + xSnapDistance) && (yValue >= dps[i].y - ySnapDistance && yValue <= dps[i].y + ySnapDistance) ) 
+		{
+			if(mouseDown) {
+				selected = i;
+				break;
+			} else {
+				changeCursor = true;
+				break; 
+			}
+		} else {
+			selected = null;
+			changeCursor = false;
+		}
+	}
+}
+
+
+
+jQuery("#chartContainer > .canvasjs-chart-container").on({
+	mousedown: function(e) {
+		mouseDown = true;
+		getPosition(e);  
+		searchDataPoint();
+	},
+	mousemove: function(e) {
+		getPosition(e);
+		if(mouseDown) {
+			clearTimeout(timerId);
+			timerId = setTimeout(function(){
+				if(selected != null) {
+					chart.data[0].dataPoints[selected].y = yValue;
+					chart.render();
+				}   
+			}, 0);
+		}
+		else {
+			searchDataPoint();
+			if(changeCursor) {
+				chart.data[0].set("cursor", "n-resize");
+			} else {
+				chart.data[0].set("cursor", "default");
+			}
+		}
+	},
+	mouseup: function(e) {
+		if(selected != null) {
+            chart.data[0].dataPoints[selected].y = yValue;
+            console.log(yValue, selected)
+			one = yValue
+			var test = $('secondEx').text()
+			console.log(test)
+			chart.render();
+			mouseDown = false;
+		}
+    }
+    
+    
+});
+
+
+
+}
+
+</script>
+
+
 </html>
