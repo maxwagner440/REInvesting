@@ -49,24 +49,41 @@
                 
 
     <div ng-app="myApp" ng-controller="myCtrl">
-		  
+			<h2>Before it gets depressing, input your income:</h2>
+			Income: <input type="number" ng-model="income1" ng-change="change()"><br>
+			Source: <input type="text" ng-model="source1" ng-change="change()"><br>  
+			Income: <input type="number" ng-model="income2" ng-change="change()"><br>
+			Source: <input type="text" ng-model="source2" ng-change="change()"><br> 
+			Income: <input type="number" ng-model="income3" ng-change="change()"><br>
+			Source: <input type="text" ng-model="source3" ng-change="change()"><br> 
+		<br>
+			Total: {{income1 + income2 + income3}}
+			
+
 			<h2>Enter in your expenses to see a chart break-down</h2>
-            First Expense: <input type="number" ng-model="firstEx" ng-change="change()"><br>
-            Second Expense: <input type="number" ng-model="secondEx" ng-change="change()"><br>
-            Third Expense: <input type="number" ng-model="thirdEx" ng-change="change()"><br>
+			First Expense: <input type="number" ng-model="firstEx" ng-change="change()"><br>
+			Name: <input type="text" ng-model="name1" ng-change="change()"><br>
+			Second Expense: <input type="number" ng-model="secondEx" ng-change="change()"><br>
+			Name: <input type="text" ng-model="name2" ng-change="change()"><br>
+			Third Expense: <input type="number" ng-model="thirdEx" ng-change="change()"><br>
+			Name: <input type="text" ng-model="name3" ng-change="change()"><br>
 			Fourth Expense: <input type="number" ng-model="fourthEx" ng-change="change()"><br>
+			Name: <input type="text" ng-model="name4" ng-change="change()"><br>
 			Fifth Expense: <input type="number" ng-model="fifthEx" ng-change="change()"><br>
+			Name: <input type="text" ng-model="name5" ng-change="change()"><br>
             <br>
-            Expense 1: {{firstEx}}<br>
-            Expense 2: {{secondEx}}<br>
-            Expense 3: {{thirdEx}}<br>
-			Expense 4: {{fourthEx}}<br>
-			Expense 5: {{fifthEx}}<br>
+            {{name1}}: {{firstEx}}<br>
+            {{name2}}: {{secondEx}}<br>
+            {{name3}}: {{thirdEx}}<br>
+			{{name4}} : {{fourthEx}}<br>
+			{{name5}} : {{fifthEx}}<br>
             <br>
             <br>
-            Total: {{firstEx + secondEx + thirdEx + fourthEx + fifthEx}}
+			Total: {{firstEx + secondEx + thirdEx + fourthEx + fifthEx}}
+			<input type="hidden" ng-model="NetIncome">
+			NetIncome = {{NetIncome}}
            </div>
-	   
+		  
 		   <div id="chart_div"></div>
             
         
@@ -80,26 +97,32 @@
 var app = angular.module('myApp', []);
    app.controller('myCtrl', function($scope) {
 					$scope.change = function(){
-                    const one = $scope.firstEx;
-					const two = $scope.secondEx;
-					const three = $scope.thirdEx;
-					const four = $scope.fourthEx;
-					const five = $scope.fifthEx;
-					const values = {	expenseNameOne: one,
-										expenseNameTwo: two,
-										expenseNameThree:three,
-										expenseNameFour:four,
-										expenseNameFive:five
-			}
-					createTheShit(values)
+					const values = {expenseNameOne: $scope.firstEx,
+									expenseNameTwo: $scope.secondEx,
+									expenseNameThree:$scope.thirdEx,
+									expenseNameFour:$scope.fourthEx,
+									expenseNameFive:$scope.fifthEx
+									}
+					const names = {	name1: $scope.name1,
+									name2: $scope.name2,
+									name3:$scope.name3,
+									name4:$scope.name4,
+									name5:$scope.name5
+									}
+					var grossIncome = $scope.income1 + $scope.income2 + $scope.income3
+					var totExpenses = values.expenseNameOne + values.expenseNameTwo + values.expenseNameThree + values.expenseNameFour + values.expenseNameFive
+					$scope.NetIncome = grossIncome - totExpenses
+					createTheShit(values, names)
                    }  
 				})
 
-window.onload = function(){
-	createTheShit(values)
+  
+window.onload = function() {
+	createTheShit(values,names)
 }
 
-var createTheShit = function(values){
+
+var createTheShit = function(values, names){
 if(!one){var one = 1}
 if(!two){var two = 1}
 if(!three){var three = 1}
@@ -121,11 +144,11 @@ if(!five){var five = 1}
 	data.addColumn('string', 'Topping');
 	data.addColumn('number', 'Amt In Dollars');
 	data.addRows([
-	  ["Expense One", values.expenseNameOne],
-	  ['Expense Two', values.expenseNameTwo],
-	  ['Expense Three', values.expenseNameThree],
-	  ['Expense Four', values.expenseNameFour],
-	  ['Expense Five', values.expenseNameFive]
+	  [names.name1, values.expenseNameOne],
+	  [names.name2, values.expenseNameTwo],
+	  [names.name3, values.expenseNameThree],
+	  [names.name4, values.expenseNameFour],
+	  [names.name5, values.expenseNameFive]
 	]);
 
 	// Set chart options
