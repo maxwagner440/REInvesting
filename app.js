@@ -50,11 +50,13 @@ app.get('/', (req, res) =>  {
       })
   })
 
-    app.get('/page2', (req, res) =>  {
-    res.sendFile(path.join(__dirname + '/page2.html')) 
+    app.get('/test', (req, res) =>  {
+    res.sendFile(path.join(__dirname + '/angularTest.html')) 
     })
     
-
+    app.get('/budget', (req, res) =>  {
+      res.sendFile(path.join(__dirname + '/budget.html')) 
+      })
   
 
   app.post('/post/data', (request, response) => {
