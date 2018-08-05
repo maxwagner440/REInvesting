@@ -13,9 +13,11 @@ I have included a batch file that should be adjusted based on the file path of y
 
 Home page:
         Currently a expense break down with a responsive bar chart. We can include income and NET income after expenses to help investors see where their budget is and where they can see improvements. This will need to go in its own page but for now I messed around on the homepage with it.
-angularTest page:
+
+AngularTest page:
         Test page to get angular working right with js. Test purposes only
-budget page:
+        
+Budget page:
         Allows for input of income vs expenses with a bar graph of expenses and a donut graph looking at expenses vs income.
         Will allow user to increase/descrease number of expense/income input boxes. Will clean up page with CSS. Will have a save feature to allow users to keep track of their profiles.
 
