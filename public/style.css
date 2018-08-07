@@ -1,0 +1,16 @@
+.flex-container {
+    display: flex;
+    justify-content: center;
+  }
+
+.text{
+    flex: 50%;
+    background-color: #80e985;
+    padding: 20px;
+}
+
+.text-between{
+    flex: 50%;
+    background-color: #80e985;
+    padding: 5px;
+}

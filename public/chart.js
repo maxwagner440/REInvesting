@@ -1,5 +1,6 @@
 window.onload = function() {
 
+var test = 1 + 1
 var chart = new CanvasJS.Chart("chartContainer", {       
 	animationEnabled: true,
 	title: {

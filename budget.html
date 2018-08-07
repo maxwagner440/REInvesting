@@ -5,13 +5,16 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Budget Page</title>
+	<title>Budget Page</title>
+	 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>      
-	<script type="text/javascript" src="scripts/chart.js"></script> 
+	<script type="text/javascript" src="/chart.js"></script> 
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>    
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>    
+	<link rel="stylesheet" type="text/css" href="/style.css" />
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	
     <style>
         body { padding-top:10px; }
     </style>
@@ -29,27 +32,66 @@
 
     <div ng-app="myApp" ng-controller="myCtrl">
 			<h2>Before it gets depressing, input your income:</h2>
+		<div class="flex-container">
+			<div class="text">
+			<div class="text-between">
 			Income: <input type="number" ng-model="income1" ng-change="change()"><br>
-			Source: <input type="text" ng-model="source1" ng-change="change()"><br>  
-			Income: <input type="number" ng-model="income2" ng-change="change()"><br>
+			</div>
+			<div class="text-between">
+			Source: <input type="text" ng-model="source1" ng-change="change()"><br>
+			</div>
+			<div class="text-between">
 			Source: <input type="text" ng-model="source2" ng-change="change()"><br> 
+			</div>
+			<div class="text-between">
+			Income: <input type="number" ng-model="income2" ng-change="change()"><br>
+			</div>
+			<div class="text-between">
+			Source: <input type="text" ng-model="source2" ng-change="change()"><br> 
+			</div>
+			<div class="text-between">
 			Income: <input type="number" ng-model="income3" ng-change="change()"><br>
+			</div>
+			<div class="text-between">
 			Source: <input type="text" ng-model="source3" ng-change="change()"><br> 
+			</div>
 		<br>
-			
-			
+	</div>	
+	</div>
 
 			<h2>Enter in your expenses to see a chart break-down</h2>
+	<div class="flex-container">
+		<div class="text">
+			<div class="text-between">
 			First Expense: <input type="number" ng-model="firstEx" ng-change="change()"><br>
+			</div>
+			<div class="text-between">
 			Name: <input type="text" ng-model="name1" ng-change="change()"><br>
+			</div>
+			<div class="text-between">
 			Second Expense: <input type="number" ng-model="secondEx" ng-change="change()"><br>
+			</div>
+			<div class="text-between">
 			Name: <input type="text" ng-model="name2" ng-change="change()"><br>
+			</div>
+			<div class="text-between">
 			Third Expense: <input type="number" ng-model="thirdEx" ng-change="change()"><br>
+			</div>
+			<div class="text-between">
 			Name: <input type="text" ng-model="name3" ng-change="change()"><br>
+			</div>
+			<div class="text-between">
 			Fourth Expense: <input type="number" ng-model="fourthEx" ng-change="change()"><br>
+			</div>
+			<div class="text-between">
 			Name: <input type="text" ng-model="name4" ng-change="change()"><br>
+			</div>
+			<div class="text-between">
 			Fifth Expense: <input type="number" ng-model="fifthEx" ng-change="change()"><br>
+			</div>
+			<div class="text-between">
 			Name: <input type="text" ng-model="name5" ng-change="change()"><br>
+			</div>
             <br>
             {{name1}}: {{firstEx}}<br>
             {{name2}}: {{secondEx}}<br>
@@ -74,7 +116,9 @@
 
 
 
-<script type="text/javascript">
+<script>
+
+
 
 var app = angular.module('myApp', []);
    app.controller('myCtrl', function($scope, $window) {
@@ -188,6 +232,7 @@ var CreateTheDonut = function(income, expenses){
 	  chart.draw(data, options);
 	}
 }
+
 
 </script>
 

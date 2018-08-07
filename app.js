@@ -6,6 +6,7 @@ var fs = require('fs');
 var convert = require('xml-js');
 
 
+
 /*
 // viewed at http://localhost:8080
 app.get('/', function(req, res) {
@@ -14,7 +15,7 @@ app.get('/', function(req, res) {
 
 app.listen(8080);
 */
-
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.get('/', (req, res) =>  {
@@ -55,7 +56,7 @@ app.get('/', (req, res) =>  {
     })
     
     app.get('/budget', (req, res) =>  {
-      res.sendFile(path.join(__dirname + '/budget.html')) 
+      res.sendFile(path.join(__dirname + '/budget.html'))
       })
   
 
